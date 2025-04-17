@@ -28,12 +28,11 @@ class User(db.Model, UserMixin):
         db.String(255), unique=True, nullable=False
     )  # Required by Flask-Security
     userRole = db.Column(db.String(20), nullable=False)
+    location = db.Column(db.String(255))  # Added: location of users
     roles = db.relationship(
         "Role", secondary="roles_users", backref=db.backref("users", lazy="dynamic")
     )
-    surplus_food = db.relationship(
-        "SurplusFood", backref="owner", lazy=True
-    )  # Add this line
+    surplus_food = db.relationship("SurplusFood", backref="owner", lazy=True)
 
 
 class SurplusFood(db.Model):
@@ -44,6 +43,9 @@ class SurplusFood(db.Model):
     expiry = db.Column(db.String(255))
     location = db.Column(db.String(255))
     status = db.Column(db.String(20), nullable=False)
+    created_at = db.Column(
+        db.DateTime, default=datetime.utcnow
+    )  # Added: Track creation time
 
 
 class Request(db.Model):

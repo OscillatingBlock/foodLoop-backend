@@ -368,6 +368,58 @@ This document outlines the API endpoints for the FoodLoop backend, built with Fl
     }
     ```
 
+### Suggestions (NGOs Only)
+**Retrieve AI-generated suggestions for new surplus food listings.**
+
+- Method: GET
+- URL: `/api/ai_predictions/opportunity_alerts` 
+- Authentication: Required (JWT token in Authorization: Bearer <token> header)
+- Description: Returns a suggestion message about new surplus food listings (e.g., grains) from farmers or retailers in the NGO’s area (based on the NGO’s location) within the last 24 hours. Includes a prediction of future listings based on historical trends.
+- Responses:
+    - 200 OK:
+
+    ```json
+    {
+      "opportunity_alert": "5 new farmers in your area have listed surplus in the past 24 hours.",
+      "listing_count": 10,
+      "farmer_count": 5,
+    }
+    ```
+    
+
+
+    - 200 OK (No Suggestions):
+    ```json
+    {
+      "opportunity_alert": "No new surplus items matching your preferences in your area recently.",
+      "prediction": "Insufficient data for weekly prediction."
+    }
+    ```
+
+
+    - 400 Bad Request:
+    ```json
+    {
+      "error": "NGO location not set"
+    }
+    ```
+    
+
+
+    - 403 Forbidden:
+   ```json
+    {
+      "error": "Unauthorized access"
+    }
+   ``` 
+
+
+    - 401 Unauthorized:
+   ```json
+    {
+      "error": "Authentication required"
+    }
+   ``` 
 ---
 
 ## Notes for Frontend Team

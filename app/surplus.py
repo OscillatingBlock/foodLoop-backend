@@ -34,6 +34,7 @@ def add_surplus():
 
     return jsonify({"added": True, "id": foodItem.id}), 201
 
+
 @surplus_bp.route("/surplus", methods=["GET"])
 @auth_required()
 def get_surplus():

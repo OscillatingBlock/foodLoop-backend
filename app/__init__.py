@@ -8,6 +8,7 @@ from .auth import auth_bp
 from .surplus import surplus_bp
 from .requests import requests_bp
 from .config import Config
+from .ai_suggestions import ai_suggestions_bp
 
 
 def create_app():
@@ -26,5 +27,5 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/api")
     app.register_blueprint(surplus_bp, url_prefix="/api")
     app.register_blueprint(requests_bp, url_prefix="/api")
-
+    app.register_blueprint(ai_suggestions_bp, url_prefix="/api")
     return app
